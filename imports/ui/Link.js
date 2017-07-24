@@ -13,7 +13,7 @@ export default class Link extends React.Component {
     return (
       <div>
         <h1>Log out</h1>
-        <button type="Logout" name="Logout" onClick={this.onLogout.bind(this)}></button>
+        <button type="Logout" name="Logout" onClick={this.onLogout.bind(this)}>Logout</button>
       </div>
     );
   }

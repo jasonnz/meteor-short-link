@@ -14,11 +14,26 @@ import ReactDOM from 'react-dom';
 const unauthenticatedPages = ['/', '/signup'];
 const authenticatedPages = ['/links'];
 
+const onEnterPublicPage = () => {
+  if (Meteor.userId()) {
+    console.log('onEnterPublicPage');
+    // browserHistory.push('/links');
+    browserHistory.replace('/links');
+  }
+};
+
+const onEnterPrivatePage = () => {
+  if (!Meteor.userId()) {
+    console.log('onEnterPrivatePage');
+    browserHistory.replace('/');
+  }
+};
+
 const routes = (
   <Router history={browserHistory}>
-    <route path="/" component={Login}/>
-    <route path="/signup" component={Signup}/>
-    <route path="/links" component={Link}/>
+    <route path="/" component={Login} onEnter={onEnterPublicPage}/>
+    <route path="/signup" component={Signup} onEnter={onEnterPublicPage}/>
+    <route path="/links" component={Link} onEnter={onEnterPrivatePage}/>
     <route path="*" component={NotFound}/>
   </Router>
 );
@@ -35,10 +50,10 @@ Tracker.autorun(() => {
   console.log(isUnauthenticatedPage + " " + isUnauthenticatedPage + " " + isAuthenticated);
 
   if (isUnauthenticatedPage && isAuthenticated) {
-    browserHistory.push('/links');
+    browserHistory.replace('/links');
   } else
   if (isAuthenticatedPage && !isAuthenticated) {
-     browserHistory.push('/');
+     browserHistory.replace('/');
   }
 
 });
