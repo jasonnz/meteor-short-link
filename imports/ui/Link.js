@@ -1,5 +1,6 @@
 import React from 'react';
 import { Accounts } from 'meteor/accounts-base';
+import { Links } from '../api/links';
 
 export default class Link extends React.Component {
   
@@ -8,12 +9,27 @@ export default class Link extends React.Component {
     // localStorage
   }
 
+  onSubmit(e) {
+    const url = this.refs.url.value.trim();
+    e.preventDefault();
+
+    if (url) {
+      Links.insert({ url });
+      this.refs.url.value = '';
+    }
+  }
+
   render() {
     
     return (
       <div>
         <h1>Log out</h1>
         <button type="Logout" name="Logout" onClick={this.onLogout.bind(this)}>Logout</button>
+        <p>Add Link</p>
+        <form onSubmit={this.onSubmit.bind(this)}>
+        <input type="text" ref="url" placeholder="URL"></input>
+        <button>Add Link</button>
+        </form>
       </div>
     );
   }
