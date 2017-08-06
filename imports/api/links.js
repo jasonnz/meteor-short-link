@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
+import SimpleSchema from 'simpl-schema';
 
 export const Links = new Mongo.Collection('links');
 
@@ -11,14 +12,24 @@ if (Meteor.isServer) {
     });
 }
 
+// SECURE way to interact with mongo
 Meteor.methods ({
-    greetUser(name) {
-        if (!name) throw new Meteor.Error('invalid-argument', 'Name is required');
-        console.log('Great user is running');
-        return `Hello ${name}`;
-    },
-    addNumber(n1, n2) {
-        if (typeof n1 !== 'number' && typeof n2 !== 'number') throw new Meteor.Error('invalid-argument', 'Number is required');
-        return n1 + n2;
+    'links.insert'(url) {
+        if (!this.userId) {
+            throw new Meteor.Error('Not-authorised!');
+        }
+
+        new SimpleSchema({
+            url: {
+                type: String,
+                label: 'Your link is badness!',
+                regEx: SimpleSchema.RegEx.Url
+            }
+        }).validate({url});
+
+        Links.insert({
+            url,
+            userId: this.userId
+        });
     }
 });
