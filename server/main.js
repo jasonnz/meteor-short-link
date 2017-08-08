@@ -5,13 +5,19 @@ import {Links} from './../imports/api/links';
 import { SimpleSchemaDV } from '../imports/startup/simple-schema-configuration';
 
 Meteor.startup(() => {
+
     WebApp.connectHandlers.use((req, res, next) => {
-        // console.log('This is from my custom middleware');
-        // // console.log(req.url, ' ' , req.method + ' ', req.headers, ' ----Query---- ', req.query);
-        // res.statusCode = 508;
-        // res.setHeader('my-custom-header', 'Jason was here');
-        // // res.write('<h1>This is my middleware at work</h1>');
-        // res.end();
-        next();
+        const _id = req.url.slice(1);
+        const link = Links.findOne({ _id });
+        
+        if (link) {
+            console.log(link);
+            res.statusCode = 302;
+            res.setHeader('Location', link.url);
+            res.end();
+        } else {
+            next();
+        }
+
     });
 });
