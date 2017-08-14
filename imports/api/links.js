@@ -15,7 +15,7 @@ if (Meteor.isServer) {
 
 // SECURE way to interact with mongo
 Meteor.methods ({
-    'links.insert'(url) {
+    'links.insert' (url) {
         if (!this.userId) {
             throw new Meteor.Error('Not-authorised!');
         }
@@ -31,7 +31,38 @@ Meteor.methods ({
         Links.insert({
             _id: shortid.generate(),
             url,
-            userId: this.userId
+            userId: this.userId,
+            visible: true
         });
+    },
+    'links.setVisibility' (_id, visible) {
+        if (!this.userId) {
+            throw new Meteor.Error('Not-authorised!');
+        }
+
+        new SimpleSchema({
+            _id: {
+                type: String,
+                label: 'Your _id is less than one',
+                min: 8
+            },
+            visible: {
+                type: Boolean,
+                label: 'Not a boolean'
+            }
+        }).validate({_id, visible});
+
+        Links.update(
+            {
+                _id, 
+                "userId": this.userId
+            }, 
+            {
+                $set: {
+                    visible
+                }
+            }
+        );
+
     }
 });
