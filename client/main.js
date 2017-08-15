@@ -1,5 +1,6 @@
 // Named imports
 import { Meteor } from 'meteor/meteor';
+import { Session } from 'meteor/session';
 import { onAuthChange, routes} from '../imports/routes/routes'; 
 import { Tracker } from 'meteor/tracker';
 import SimpleSchemaDV  from '../imports/startup/simple-schema-configuration';
@@ -14,5 +15,6 @@ Tracker.autorun(() => {
 });
 
 Meteor.startup(() => {
+  Session.set('showVisible', true);
   ReactDOM.render(routes, document.getElementById('app'));
 });
