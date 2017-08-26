@@ -7,8 +7,8 @@ import { SimpleSchemaDV } from '../imports/startup/simple-schema-configuration';
 
 Meteor.startup(() => {
 
-    let momentNow = moment();
-    console.log(momentNow.format('MMM'));
+    let momentNow = moment(1);
+    console.log(momentNow.fromNow());
 
     WebApp.connectHandlers.use((req, res, next) => {
         const _id = req.url.slice(1);

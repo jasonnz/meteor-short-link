@@ -1,5 +1,6 @@
 import React from 'react';
 import Clipboard from 'clipboard';
+import moment from 'moment';
 import { Meteor } from 'meteor/meteor';
 
 export default class LinksListItem extends React.Component {
@@ -28,13 +29,25 @@ export default class LinksListItem extends React.Component {
         } 
     }
 
+    renderStats() {
+        const visitMessage = this.props.visitedCount === 1 ? 'Visit' : 'Visits';
+        let visitedMessage = null;
+
+        if ( typeof this.props.lastVisitedAt === 'number') {
+            let momentNow = moment(this.props.lastVisitedAt).fromNow();
+            visitedMessage = `(visited ${ momentNow })`;
+        }
+
+        return <p>{this.props.visitedCount} {visitMessage} - {visitedMessage}</p>
+    }
+
     render() {
         return (
             <div>
                 <p key={this.props._id}>{this.props.url} </p>
                 <p>{this.props.shortUrl}</p>
                 <p>{this.props.visible.toString()}</p>
-                <p>{this.props.visitedCount} - {this.props.lastVisitedAt}</p>
+                {this.renderStats()}
                 <button ref="copy" data-clipboard-text={this.props.shortUrl}>
                     {this.state.justCopied ? 'Copied' : 'Copy'}
                 </button>
