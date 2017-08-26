@@ -2,6 +2,9 @@ import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import { Links } from '../api/links';
 
+// vistiedCount
+// lastVisitedAt start with null
+// db.links.updateMany({},{$set : {"vistiedCount": 0,"lastVisitedAt": null}});
 
 export default class AddLink extends React.Component {
     constructor(props) {
