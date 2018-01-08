@@ -1,4 +1,4 @@
-.boxed-view {
+    .boxed-view {
     align-items: center;
     background: $Boxed-view-overlay-bg;
     display: flex;
@@ -12,4 +12,9 @@
     padding: 2.4rem;
     text-align: center;
     widows: 24rem;
+}
+
+.boxed-view__form {
+    display: flex;
+    flex-direction: column;
 }
