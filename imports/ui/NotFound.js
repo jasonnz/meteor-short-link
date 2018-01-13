@@ -8,7 +8,7 @@ const NotFound = (props) => {
                 <div>
                     <h1>Page not found!</h1>
                     <p>Component is not found yo! </p>
-                    <Link to="/links">HEAD HOME</Link>
+                    <Link to="/links" className="button button--link">HEAD HOME</Link>
                 </div>
             </div>
         </div>    
