@@ -10,6 +10,12 @@
     line-height: 1.2;
 }
 
+.button--secondary {
+    background: $Button-secondary-bg;
+    border: 1px solid $Button-secondary-border-color;
+    color: $Button-pill-color;
+}
+
 .button--link {
     display: inline-block;
     text-decoration: none;
