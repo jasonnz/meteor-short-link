@@ -1,18 +1,29 @@
 // Colors
 $grey: #dddddd;
+$brand-primary: #5b4681;
+
 // Spacing
 $space: 1.4rem;
+$site-max-width: 50rem;
+
 // Boxed View
 $Boxed-view-overlay-bg: $grey;
 $Boxed-view-bg:whitesmoke;
+
 // Font sizes
 $Base-font-size: 1.4rem;
+
 // Form inputs
 $Input-border: $grey;
 $Input-spacing: 1rem;
+
 // Button
 $Button-bg: #5b4681;
 $Button-color: white;
 $Button-pill-color: #5b4681;
 $Button-secondary-bg: #f9f9f9;
 $Button-secondary-border-color: #dddddd;
+
+//header
+$header-bg: $brand-primary;
+$header-color: white;
